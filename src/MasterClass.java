@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 
 public class MasterClass {
@@ -6,8 +7,11 @@ public class MasterClass {
 	ArrayList<CustomerDetails> customers = new ArrayList<>();
 	
 	public MasterClass() {
-		ReadFromFile readCustomer = new ReadFromFile("customers.txt", "customers");
-		ReadFromFile readBank = new ReadFromFile("banks.txt", "banks");
+//		 File testFile = new File("");
+//		    String currentPath = testFile.getAbsolutePath();
+//		    System.out.println("current path is: " + currentPath);
+		ReadFromFile readCustomer = new ReadFromFile("./src/customers.txt", "customers");
+		ReadFromFile readBank = new ReadFromFile("./src/banks.txt", "banks");
 		BankDetails b;
 		CustomerDetails c;
 		
