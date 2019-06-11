@@ -1,5 +1,4 @@
-
-public class BankDetails implements Runnable{
+public class BankDetails {
 
 	float balance;
 	String bankName;
@@ -14,15 +13,7 @@ public class BankDetails implements Runnable{
 	@Override
 	public String toString() {
 
-		return bankName+" "+balance;
-	}
-
-	@Override
-	public void run() {
-		
-		Thread t = new Thread(this);
-		
-		
+		return bankName+": "+balance;
 	}
 	
 }

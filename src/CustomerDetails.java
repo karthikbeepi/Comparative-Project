@@ -1,4 +1,3 @@
-
 public class CustomerDetails {
 
 	float loanAmt;
@@ -14,7 +13,7 @@ public class CustomerDetails {
 	@Override
 	public String toString() {
 		
-		return customerName+" "+loanAmt;
+		return customerName+": "+loanAmt;
 	}
 	
 }
