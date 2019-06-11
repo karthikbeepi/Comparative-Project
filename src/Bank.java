@@ -1,9 +1,9 @@
-public class BankDetails {
+public class Bank implements Runnable {
 
 	float balance;
 	String bankName;
 	
-	public BankDetails(String bname, float bal) {
+	public Bank(String bname, float bal) {
 		
 		bankName = bname;
 		balance = bal;
@@ -14,6 +14,12 @@ public class BankDetails {
 	public String toString() {
 
 		return bankName+": "+balance;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

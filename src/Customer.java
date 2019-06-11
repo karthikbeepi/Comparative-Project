@@ -1,9 +1,9 @@
-public class CustomerDetails {
+public class Customer implements Runnable {
 
 	float loanAmt;
 	String customerName;
 	
-	public CustomerDetails(String cname, float loan) {
+	public Customer(String cname, float loan) {
 		
 		customerName = cname;
 		loanAmt = loan;
@@ -14,6 +14,12 @@ public class CustomerDetails {
 	public String toString() {
 		
 		return customerName+": "+loanAmt;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

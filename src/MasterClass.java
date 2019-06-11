@@ -1,10 +1,11 @@
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MasterClass {
 	
-	ArrayList<BankDetails> banks = new ArrayList<>();
-	ArrayList<CustomerDetails> customers = new ArrayList<>();
+	HashMap<String , Float> banks = new HashMap<>();
+	HashMap<String, Float> customers = new HashMap<>();
 	
 	public MasterClass() {
 //		 File testFile = new File("");
@@ -12,27 +13,29 @@ public class MasterClass {
 //		    System.out.println("current path is: " + currentPath);
 		ReadFromFile readCustomer = new ReadFromFile("./src/customers.txt", "customers");
 		ReadFromFile readBank = new ReadFromFile("./src/banks.txt", "banks");
-		BankDetails b;
-		CustomerDetails c;
-		
+//		BankDetails b;
+//		CustomerDetails c;
+//		
+		Pair temp;
 		System.out.println("** Customers and loan objectives **");
 		while(true)
 		{
-			c = (CustomerDetails) readCustomer.next();
-			if(c==null)
+			temp =  readCustomer.next();
+			if(temp==null)
 				break;
-			customers.add(c);
-			System.out.println(c);
+			customers.put(temp.name, temp.value);
+			System.out.println(temp.name+" "+temp.value);
+			
 		}
 		
 		System.out.println("\n** Banks and financial resources **");
 		while(true)
 		{
-			b = (BankDetails) readBank.next();
-			if(b==null)
+			temp =  readBank.next();
+			if(temp==null)
 				break;
-			banks.add(b);
-			System.out.println(b);
+			banks.put(temp.name, temp.value);
+			System.out.println(temp.name+" "+temp.value);
 		}
 		
 	}
@@ -47,12 +50,10 @@ public class MasterClass {
 	}
 
 	private void runCustomers() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	private void runBanks() {
-		// TODO Auto-generated method stub
 		
 	}
 	
