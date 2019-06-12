@@ -35,9 +35,14 @@ public class Customer implements Runnable {
 				bankSelected = obj.bankNames.get(rand.nextInt(obj.bankNames.size()));
 			}
 			ArrayList<String> temp = obj.bankMessages.get(bankSelected);
-			temp.add(customerName+" "+100);
+			float loanReq = (float)rand.nextInt(50);
+//			if(loanReq>loanAmt)
+//				loanReq = (float) rand.nextInt((int)loanAmt-1)+1;
+			loanReq = 100;
+//			System.out.println(customerName+" requests a loan of "+loanReq+" dollar(s) from "+bankSelected);
+			temp.add(customerName+" "+loanReq);
 			try {
-				wait(1000);
+				wait(rand.nextInt(10)+100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -47,7 +52,7 @@ public class Customer implements Runnable {
 			while(s==null)
 			{
 				try {
-					wait(1000);
+					wait(rand.nextInt(10)+100);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -56,20 +61,22 @@ public class Customer implements Runnable {
 			}
 			
 			if(s.compareToIgnoreCase("YES")==0)
-				loanAmt-=100;
+				loanAmt-=loanReq;
 			else
 			{
 				banksDelisted.add(bankSelected);
 			}
 			obj.customerMessages.remove(customerName);
 			try {
-				wait(1000);
+				wait(rand.nextInt(10)+100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		System.out.println("DONE "+customerName+" "+loanAmt);
+		obj.customersDone.add(customerName);
+		
 	}
 	
 }

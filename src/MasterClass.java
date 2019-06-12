@@ -7,6 +7,7 @@ public class MasterClass {
 	HashMap<String , Float> banks = new HashMap<>();
 	HashMap<String, Float> customers = new HashMap<>();
 	ArrayList<String> bankNames = new ArrayList<>();
+	ArrayList<String> customersDone = new ArrayList<>();
 	
 	HashMap<String, ArrayList<String>> bankMessages = new HashMap<>();
 	HashMap<String, String> customerMessages = new HashMap<>();
@@ -54,6 +55,7 @@ public class MasterClass {
 			System.out.println(temp.name+" "+temp.value);
 		}
 		
+		System.out.println();
 	}
 	
 	public static void main(String args[])

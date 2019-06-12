@@ -22,7 +22,6 @@ public class Bank implements Runnable {
 	@Override
 	public synchronized void run() {
 		
-		int times =0;
 		ArrayList<String> msg = obj.bankMessages.get(bankName);
 		while(msg.size()==0)
 		{
@@ -34,20 +33,17 @@ public class Bank implements Runnable {
 			continue;
 		}
 		
-		while(true)
+		while(obj.customersDone.size()!=obj.customers.size())
 		{
 			ArrayList<String> temp = obj.bankMessages.get(bankName);
 			if(temp.size()==0)
 			{
-				times++;
 				try {
-					wait(1000);
+					wait(100);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				if(times==10)
-					break;
 				continue;
 			}
 			for(String s: temp)
@@ -56,18 +52,22 @@ public class Bank implements Runnable {
 				Float f = Float.parseFloat(sp[1]);
 				if(balance<f)
 				{
+//					System.out.println(bankName+" denies a loan of "+sp[1]+" dollar(s) from "+sp[0]);
 					obj.customerMessages.put(sp[0], "NO");
 				}
 				else
 				{
+//					System.out.println(bankName+" approves a loan of "+sp[1]+" dollar(s) from "+sp[0]);
 					obj.customerMessages.put(sp[0], "YES");
 					balance-=f;
+//					System.out.println("Current balance "+bankName+" : "+balance);
 				}
 			}
 			
 			temp.clear();
 			try {
-				wait(1000);
+				wait(100);
+				continue;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -75,10 +75,10 @@ public class Bank implements Runnable {
 			
 			if(balance==0)
 			{
-				System.out.println("DOne "+bankName);
-				break;
+				System.out.println("Done "+bankName);
 			}
 		}
+		System.out.println("Done "+bankName+" "+balance);
 	}
 	
 }
