@@ -35,11 +35,11 @@ public class Customer implements Runnable {
 				bankSelected = obj.bankNames.get(rand.nextInt(obj.bankNames.size()));
 			}
 			ArrayList<String> temp = obj.bankMessages.get(bankSelected);
-			float loanReq = (float)rand.nextInt(50);
-//			if(loanReq>loanAmt)
-//				loanReq = (float) rand.nextInt((int)loanAmt-1)+1;
-			loanReq = 100;
-//			System.out.println(customerName+" requests a loan of "+loanReq+" dollar(s) from "+bankSelected);
+			float loanReq = (float)rand.nextInt(50)+1;
+			if(loanReq>=loanAmt)
+				loanReq = (float)rand.nextInt((int)loanAmt)+1;
+//			loanReq = 100;
+			System.out.println(customerName+" requests a loan of "+loanReq+" dollar(s) from "+bankSelected);
 			temp.add(customerName+" "+loanReq);
 			try {
 				wait(rand.nextInt(10)+100);
@@ -67,14 +67,12 @@ public class Customer implements Runnable {
 				banksDelisted.add(bankSelected);
 			}
 			obj.customerMessages.remove(customerName);
-			try {
-				wait(rand.nextInt(10)+100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 		}
-		System.out.println("DONE "+customerName+" "+loanAmt);
+		if(loanAmt==0)
+			System.out.println("\n"+customerName+" has reached the objective of "+obj.customers.get(customerName)+" Woo Hoo!");
+		else
+			System.out.println("\n"+customerName+" was only able to borrow "+(obj.customers.get(customerName)-loanAmt)+" Boo Hoo!!! ");
 		obj.customersDone.add(customerName);
 		
 	}

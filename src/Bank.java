@@ -39,32 +39,36 @@ public class Bank implements Runnable {
 			if(temp.size()==0)
 			{
 				try {
-					wait(100);
+					wait(10);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				continue;
 			}
-			for(String s: temp)
+//			for(String s: temp)
+//			for(int j=0; j<temp.size(); j++)
+			while(temp.size()!=0)
 			{
+				String s = temp.get(0);
 				String[] sp = s.split(" ");
 				Float f = Float.parseFloat(sp[1]);
 				if(balance<f)
 				{
-//					System.out.println(bankName+" denies a loan of "+sp[1]+" dollar(s) from "+sp[0]);
+					System.out.println(bankName+" denies a loan of "+sp[1]+" dollar(s) from "+sp[0]);
 					obj.customerMessages.put(sp[0], "NO");
 				}
 				else
 				{
-//					System.out.println(bankName+" approves a loan of "+sp[1]+" dollar(s) from "+sp[0]);
+					System.out.println(bankName+" approves a loan of "+sp[1]+" dollar(s) from "+sp[0]);
 					obj.customerMessages.put(sp[0], "YES");
 					balance-=f;
 //					System.out.println("Current balance "+bankName+" : "+balance);
 				}
+				temp.remove(0);
 			}
 			
-			temp.clear();
+//			temp.clear();
 			try {
 				wait(100);
 				continue;
@@ -72,13 +76,10 @@ public class Bank implements Runnable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			if(balance==0)
-			{
-				System.out.println("Done "+bankName);
-			}
 		}
-		System.out.println("Done "+bankName+" "+balance);
+//		System.out.println("Done "+bankName+" "+balance);
+		if(balance>0)
+			System.out.println("\n"+bankName+" has "+balance+" dollar(s) remaining");
 	}
 	
 }
