@@ -55,12 +55,12 @@ public class Bank implements Runnable {
 				Float f = Float.parseFloat(sp[1]);
 				if(balance<f)
 				{
-					System.out.println(bankName+" denies a loan of "+sp[1]+" dollar(s) from "+sp[0]);
+					System.out.println(bankName+" denies a loan of "+(int) Math.round(f)+" dollar(s) from "+sp[0]);
 					obj.customerMessages.put(sp[0], "NO");
 				}
 				else
 				{
-					System.out.println(bankName+" approves a loan of "+sp[1]+" dollar(s) from "+sp[0]);
+					System.out.println(bankName+" approves a loan of "+(int) Math.round(f)+" dollar(s) from "+sp[0]);
 					obj.customerMessages.put(sp[0], "YES");
 					balance-=f;
 //					System.out.println("Current balance "+bankName+" : "+balance);
@@ -79,7 +79,7 @@ public class Bank implements Runnable {
 		}
 //		System.out.println("Done "+bankName+" "+balance);
 		if(balance>0)
-			System.out.println("\n"+bankName+" has "+balance+" dollar(s) remaining !");
+			System.out.println("\n"+bankName+" has "+(int)balance+" dollar(s) remaining !");
 	}
 	
 }

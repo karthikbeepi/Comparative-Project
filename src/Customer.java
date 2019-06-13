@@ -43,7 +43,7 @@ public class Customer implements Runnable {
 			if(loanReq>=loanAmt)
 				loanReq = loanAmt;
 //			loanReq = 100;
-			System.out.println(customerName+" requests a loan of "+loanReq+" dollar(s) from "+bankSelected);
+			System.out.println(customerName+" requests a loan of "+(int)loanReq+" dollar(s) from "+bankSelected);
 			temp.add(customerName+" "+loanReq);
 			try {
 				wait(rand.nextInt(10)+100);
@@ -74,9 +74,9 @@ public class Customer implements Runnable {
 			
 		}
 		if(loanAmt==0)
-			System.out.println("\n"+customerName+" has reached the objective of "+obj.customers.get(customerName)+" Woo Hoo!");
+			System.out.println("\n"+customerName+" has reached the objective of "+(int) Math.round(obj.customers.get(customerName))+" Woo Hoo!");
 		else
-			System.out.println("\n"+customerName+" was only able to borrow "+(obj.customers.get(customerName)-loanAmt)+" Boo Hoo!!! ");
+			System.out.println("\n"+customerName+" was only able to borrow "+(int) Math.round(obj.customers.get(customerName)-loanAmt)+" Boo Hoo!!! ");
 		obj.customersDone.add(customerName);
 		
 	}
