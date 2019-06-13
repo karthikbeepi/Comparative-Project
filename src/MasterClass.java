@@ -18,7 +18,7 @@ public class MasterClass {
 	public MasterClass() {
 		File testFile = new File("");
 		String currentPath = testFile.getAbsolutePath();
-		System.out.println("current path is: " + currentPath);
+//		System.out.println("current path is: " + currentPath);
 		ReadFromFile readCustomer;
 		ReadFromFile readBank;
 		if(!currentPath.contains("src"))
@@ -33,7 +33,7 @@ public class MasterClass {
 		}
 			
 		Pair temp;
-		System.out.println("** Customers and loan objectives **");
+		System.out.println("*** Customers and loan objectives ***");
 		while(true)
 		{
 			temp =  readCustomer.next();
@@ -44,7 +44,7 @@ public class MasterClass {
 			
 		}
 		
-		System.out.println("\n** Banks and financial resources **");
+		System.out.println("\n*** Banks and financial resources ***");
 		while(true)
 		{
 			temp =  readBank.next();

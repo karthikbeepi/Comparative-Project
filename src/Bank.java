@@ -79,7 +79,7 @@ public class Bank implements Runnable {
 		}
 //		System.out.println("Done "+bankName+" "+balance);
 		if(balance>0)
-			System.out.println("\n"+bankName+" has "+balance+" dollar(s) remaining");
+			System.out.println("\n"+bankName+" has "+balance+" dollar(s) remaining !");
 	}
 	
 }

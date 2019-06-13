@@ -35,9 +35,13 @@ public class Customer implements Runnable {
 				bankSelected = obj.bankNames.get(rand.nextInt(obj.bankNames.size()));
 			}
 			ArrayList<String> temp = obj.bankMessages.get(bankSelected);
+			
 			float loanReq = (float)rand.nextInt(50)+1;
+			
+//			loanReq = (float)(rand.nextInt(5000)*0.01)+1;
+			
 			if(loanReq>=loanAmt)
-				loanReq = (float)rand.nextInt((int)loanAmt)+1;
+				loanReq = loanAmt;
 //			loanReq = 100;
 			System.out.println(customerName+" requests a loan of "+loanReq+" dollar(s) from "+bankSelected);
 			temp.add(customerName+" "+loanReq);
