@@ -2,7 +2,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MasterClass {
+public class money {
 	
 	HashMap<String , Float> banks = new HashMap<>();
 	HashMap<String, Float> customers = new HashMap<>();
@@ -15,7 +15,7 @@ public class MasterClass {
 	Thread[] bankThreads;
 	Thread[] customerThreads;
 	
-	public MasterClass() {
+	public money() {
 		File testFile = new File("");
 		String currentPath = testFile.getAbsolutePath();
 //		System.out.println("current path is: " + currentPath);
@@ -40,7 +40,7 @@ public class MasterClass {
 			if(temp==null)
 				break;
 			customers.put(temp.name, temp.value);
-			System.out.println(temp.name+" "+temp.value);
+			System.out.println(temp.name+": "+(int)temp.value);
 			
 		}
 		
@@ -52,7 +52,7 @@ public class MasterClass {
 				break;
 			banks.put(temp.name, temp.value);
 			bankNames.add(temp.name);
-			System.out.println(temp.name+" "+temp.value);
+			System.out.println(temp.name+": "+(int)temp.value);
 		}
 		
 		System.out.println();
@@ -61,7 +61,7 @@ public class MasterClass {
 	public static void main(String args[])
 	{
 		
-		MasterClass obj = new MasterClass();
+		money obj = new money();
 		obj.runBanks();
 		obj.runCustomers();
 		

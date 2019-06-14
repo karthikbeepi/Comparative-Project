@@ -4,9 +4,9 @@ public class Bank implements Runnable {
 
 	float balance;
 	String bankName;
-	MasterClass obj;
+	money obj;
 	
-	public Bank(String bname, float bal, MasterClass masterClass ) {
+	public Bank(String bname, float bal, money masterClass ) {
 		
 		bankName = bname;
 		balance = bal;

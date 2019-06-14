@@ -5,10 +5,10 @@ public class Customer implements Runnable {
 
 	float loanAmt;
 	String customerName;
-	MasterClass obj;
+	money obj;
 	ArrayList<String> banksDelisted = new ArrayList<>();
 	
-	public Customer(String cname, float loan, MasterClass m) {
+	public Customer(String cname, float loan, money m) {
 		
 		customerName = cname;
 		loanAmt = loan;
