@@ -1,6 +1,7 @@
 -module(bank).
 -export([makeBankProcesses/1, bank/2]).
 
+
 bank(BankName, Balance) ->
     receive
             {Customer , LoanAmt} ->
@@ -14,13 +15,12 @@ bank(BankName, Balance) ->
                         master_recv ! {Customer, no, LoanAmt, BankName, Balance},
                         bank(BankName, Balance)
                 end
-    % after 1000 -> master_recv ! {BankName,closing, Balance}
-end
-    .
+    after 400 -> master_recv ! {BankName , closing , Balance}
+    end
+.
 
 makeBankProcesses([]) ->
     ok;
 makeBankProcesses([{K , V}|Rest]) ->
-    % io:fwrite("~p \n", [K]),
     register(K, spawn(?MODULE, bank, [K, V])),
     makeBankProcesses(Rest).

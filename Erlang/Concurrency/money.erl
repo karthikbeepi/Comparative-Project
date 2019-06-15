@@ -14,16 +14,22 @@ initialPrints() ->
 start_recv() ->
     receive
         {Customer, yes, Amount, Bank, Balance} ->
-            io:fwrite("~p approved a loan of ~p from ~p ~p\n",[Bank, Amount, Customer, Balance]),
+            io:fwrite("~p approved a loan of ~p from ~p \n",[Bank, Amount, Customer]),
             start_recv();
         {Customer, no, Amount, Bank, Balance} ->
-            io:fwrite("~p rejected a loan of ~p from ~p ~p\n",[Bank, Amount, Customer, Balance]),
+            io:fwrite("~p denies a loan of ~p from ~p \n",[Bank, Amount, Customer]),
             start_recv();
         {Customer, request, Amount, Bank} ->
             io:fwrite("~p requested a loan of ~p from ~p\n",[Customer, Amount, Bank]),
             start_recv();
         {BankName, closing, Balance} ->
-            io:fwrite("~p Closed with Balance: ~p", BankName, Balance),
+            io:fwrite("~p has ~p dollar(s) remaining.\n", [BankName, Balance]),
+            start_recv();
+        {CustomerName, done, LoanAmt} ->
+            io:fwrite("~p has reached the objective of ~p dollar(s). Woo Hoo!\n", [CustomerName, LoanAmt]),
+            start_recv();
+        {CustomerName, notdone, LoanAmt} ->
+            io:fwrite("~p was only able to borrow ~p dollar(s). Boo Hoo!\n", [CustomerName, LoanAmt]),
             start_recv()
     end
 .
@@ -36,6 +42,6 @@ start() ->
     bank:makeBankProcesses(BankList),
     register(master_recv, spawn(?MODULE, start_recv, [])),
     Blist = maps:keys(Banks),
-    io:fwrite("\nLet the begging begin!\n\n"),
+    io:fwrite("\n"),
     customer:makeCustomerProcesses(CustomerList, Blist)
 .
