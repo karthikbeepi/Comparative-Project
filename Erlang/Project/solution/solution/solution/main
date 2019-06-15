@@ -1,6 +1,0 @@
-#!/usr/bin/env escript
-
-main([File]) ->
-	exchange:main(File).
- 
-  
