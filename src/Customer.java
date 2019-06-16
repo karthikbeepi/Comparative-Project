@@ -46,19 +46,20 @@ public class Customer implements Runnable {
 			System.out.println(customerName+" requests a loan of "+(int)loanReq+" dollar(s) from "+bankSelected);
 			temp.add(customerName+" "+loanReq);
 			try {
-				wait(rand.nextInt(10)+100);
+				wait(rand.nextInt(200)+10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			String s = obj.customerMessages.get(customerName);
-			
+//			int c =0;
 			while(s==null)
 			{
+//				c++;break;
 				try {
-					wait(rand.nextInt(10)+100);
+					
+					wait(rand.nextInt(100));
+//					notifyAll();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				s = obj.customerMessages.get(customerName);
@@ -78,6 +79,12 @@ public class Customer implements Runnable {
 		else
 			System.out.println("\n"+customerName+" was only able to borrow "+(int) Math.round(obj.customers.get(customerName)-loanAmt)+" Boo Hoo!!! ");
 		obj.customersDone.add(customerName);
+		try {
+			wait(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

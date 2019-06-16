@@ -2,7 +2,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class money {
+public class money{
 	
 	HashMap<String , Float> banks = new HashMap<>();
 	HashMap<String, Float> customers = new HashMap<>();

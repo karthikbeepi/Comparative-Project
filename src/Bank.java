@@ -39,7 +39,7 @@ public class Bank implements Runnable {
 			if(temp.size()==0)
 			{
 				try {
-					wait(10);
+					wait(1);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -70,16 +70,14 @@ public class Bank implements Runnable {
 			
 //			temp.clear();
 			try {
-				wait(100);
+				wait(123);
 				continue;
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 //		System.out.println("Done "+bankName+" "+balance);
-		if(balance>0)
-			System.out.println("\n"+bankName+" has "+(int)balance+" dollar(s) remaining !");
+		System.out.println("\n"+bankName+" has "+(int)balance+" dollar(s) remaining !");
 	}
 	
 }

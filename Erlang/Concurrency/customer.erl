@@ -20,12 +20,12 @@ customer(CustomerName, LoanAmt, BankList, NotToCall, Acc) when LoanAmt =< 0 ->
     ok;
 customer(CustomerName, LoanAmt, BankList, NotToCall, Acc) when LoanAmt > 0->
     RandomBank = getRandomBank(BankList, NotToCall),
-    timer:sleep(rand:uniform(100)),
-    if 
+    timer:sleep(rand:uniform(100)+10),
+    if
         (RandomBank == stop) ->
             master_recv ! {CustomerName, notdone, Acc},
             ok;
-        true ->
+        (RandomBank /= stop) ->
                 RandomAmt = rand:uniform(50),
                 if
                     (RandomAmt >= LoanAmt) ->
@@ -39,8 +39,8 @@ customer(CustomerName, LoanAmt, BankList, NotToCall, Acc) when LoanAmt > 0->
                     {yes} ->
                             if
                                 (RandomAmt >= LoanAmt) ->
-                                    customer(CustomerName, LoanAmt-RandomAmt, BankList, NotToCall, Acc+LoanAmt);
-                                true ->
+                                    customer(CustomerName, LoanAmt-LoanAmt, BankList, NotToCall, Acc+LoanAmt);
+                                (RandomAmt < LoanAmt) ->
                                     customer(CustomerName, LoanAmt-RandomAmt, BankList, NotToCall, Acc+RandomAmt)
                             end;
                     {no} ->

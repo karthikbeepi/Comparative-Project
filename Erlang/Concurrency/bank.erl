@@ -10,13 +10,14 @@ bank(BankName, Balance) ->
                         Customer ! {yes},
                         master_recv ! {Customer, yes, LoanAmt, BankName, Balance-LoanAmt},
                         bank(BankName, Balance-LoanAmt);
-                    true ->
+                    (LoanAmt > Balance ) ->
                         Customer ! {no},
                         master_recv ! {Customer, no, LoanAmt, BankName, Balance},
                         bank(BankName, Balance)
                 end
-    after 400 -> master_recv ! {BankName , closing , Balance}
+        after 1500-> master_recv ! {closing, BankName ,  Balance}
     end
+        % master_recv ! {closing, BankName ,  Balance}
 .
 
 makeBankProcesses([]) ->

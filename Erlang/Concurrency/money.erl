@@ -22,14 +22,14 @@ start_recv() ->
         {Customer, request, Amount, Bank} ->
             io:fwrite("~p requested a loan of ~p from ~p\n",[Customer, Amount, Bank]),
             start_recv();
-        {BankName, closing, Balance} ->
+        {closing, BankName,  Balance} ->
             io:fwrite("~p has ~p dollar(s) remaining.\n", [BankName, Balance]),
             start_recv();
         {CustomerName, done, LoanAmt} ->
-            io:fwrite("~p has reached the objective of ~p dollar(s). Woo Hoo!\n", [CustomerName, LoanAmt]),
+            io:fwrite("\n~p has reached the objective of ~p dollar(s). Woo Hoo!\n", [CustomerName, LoanAmt]),
             start_recv();
         {CustomerName, notdone, LoanAmt} ->
-            io:fwrite("~p was only able to borrow ~p dollar(s). Boo Hoo!\n", [CustomerName, LoanAmt]),
+            io:fwrite("\n~p was only able to borrow ~p dollar(s). Boo Hoo!\n", [CustomerName, LoanAmt]),
             start_recv()
     end
 .
@@ -43,5 +43,6 @@ start() ->
     register(master_recv, spawn(?MODULE, start_recv, [])),
     Blist = maps:keys(Banks),
     io:fwrite("\n"),
-    customer:makeCustomerProcesses(CustomerList, Blist)
+    customer:makeCustomerProcesses(CustomerList, Blist),
+    timer:sleep(2500)
 .
