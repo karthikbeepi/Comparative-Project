@@ -37,7 +37,7 @@ public class Customer implements Runnable {
 			ArrayList<String> temp = obj.bankMessages.get(bankSelected);
 			
 			float loanReq = (float)rand.nextInt(50)+1;
-			
+			loanReq = 100;
 //			loanReq = (float)(rand.nextInt(5000)*0.01)+1;
 			
 			if(loanReq>=loanAmt)
@@ -46,23 +46,21 @@ public class Customer implements Runnable {
 			System.out.println(customerName+" requests a loan of "+(int)loanReq+" dollar(s) from "+bankSelected);
 			temp.add(customerName+" "+loanReq);
 			try {
-				wait(rand.nextInt(200)+10);
+				wait(rand.nextInt(100)+10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			String s = obj.customerMessages.get(customerName);
-//			int c =0;
+
 			while(s==null)
 			{
-//				c++;break;
 				try {
-					
 					wait(rand.nextInt(100));
-//					notifyAll();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				s = obj.customerMessages.get(customerName);
+				System.out.println(customerName+" "+bankSelected+" "+loanReq);
 			}
 			
 			if(s.compareToIgnoreCase("YES")==0)
@@ -79,13 +77,7 @@ public class Customer implements Runnable {
 		else
 			System.out.println("\n"+customerName+" was only able to borrow "+(int) Math.round(obj.customers.get(customerName)-loanAmt)+" Boo Hoo!!! ");
 		obj.customersDone.add(customerName);
-		try {
-			wait(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		System.out.println(obj.customersDone);
 	}
 	
 }

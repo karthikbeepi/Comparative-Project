@@ -6,7 +6,7 @@ import java.io.IOException;
 class Pair{
 	String name;
 	float value;
-	public Pair(String n, float val) {
+	public Pair(String n, int val) {
 		name = n;
 		value = val;
 	}
@@ -34,17 +34,12 @@ public class ReadFromFile {
 
 	public Pair next() {
 		
-//		if(type.compareToIgnoreCase("customers")==0)
-//			return readCustomer();
-//		else
-//			return readBank();
-		
 		try {
 			String str = br.readLine();
 			if(str==null)
 				return null;
 			int posComma = str.indexOf(",");
-			return new Pair(str.substring(1, posComma), Float.parseFloat(str.substring(posComma+1, str.length()-2)));
+			return new Pair(str.substring(1, posComma), Integer.parseInt(str.substring(posComma+1, str.length()-2)));
 		} catch (IOException e) {
 		
 			e.printStackTrace();

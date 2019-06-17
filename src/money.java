@@ -60,7 +60,6 @@ public class money{
 	
 	public static void main(String args[])
 	{
-		
 		money obj = new money();
 		obj.runBanks();
 		obj.runCustomers();

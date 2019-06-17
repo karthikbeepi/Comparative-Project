@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Bank implements Runnable {
 
@@ -39,15 +40,14 @@ public class Bank implements Runnable {
 			if(temp.size()==0)
 			{
 				try {
-					wait(1);
+					wait(new Random().nextInt(100));
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				System.out.println(obj.bankMessages+" "+bankName+obj.customerMessages);
 				continue;
 			}
-//			for(String s: temp)
-//			for(int j=0; j<temp.size(); j++)
 			while(temp.size()!=0)
 			{
 				String s = temp.get(0);
@@ -66,18 +66,10 @@ public class Bank implements Runnable {
 //					System.out.println("Current balance "+bankName+" : "+balance);
 				}
 				temp.remove(0);
+				System.out.println(obj.bankMessages+" "+bankName+obj.customerMessages);
 			}
-			
-//			temp.clear();
-			try {
-				wait(123);
-				continue;
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
 //		System.out.println("Done "+bankName+" "+balance);
+		}
 		System.out.println("\n"+bankName+" has "+(int)balance+" dollar(s) remaining !");
 	}
-	
 }
