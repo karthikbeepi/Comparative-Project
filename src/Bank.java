@@ -27,7 +27,7 @@ public class Bank implements Runnable {
 		while(msg.size()==0)
 		{
 			try {
-				wait(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -37,19 +37,31 @@ public class Bank implements Runnable {
 		while(obj.customersDone.size()!=obj.customers.size())
 		{
 			ArrayList<String> temp = obj.bankMessages.get(bankName);
-			if(temp.size()==0)
+			while(temp.size()==0)
 			{
 				try {
-					wait(new Random().nextInt(100));
+					Thread.sleep(100);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println(obj.bankMessages+" "+bankName+obj.customerMessages);
+//				System.out.println(obj.bankMessages+" "+bankName+obj.customerMessages);
 				continue;
 			}
 			while(temp.size()!=0)
 			{
+				if(temp==null)
+				{
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+//					System.out.println(obj.bankMessages+" "+bankName+obj.customerMessages);
+					continue;
+				}
+					
 				String s = temp.get(0);
 				String[] sp = s.split(" ");
 				Float f = Float.parseFloat(sp[1]);
@@ -66,7 +78,7 @@ public class Bank implements Runnable {
 //					System.out.println("Current balance "+bankName+" : "+balance);
 				}
 				temp.remove(0);
-				System.out.println(obj.bankMessages+" "+bankName+obj.customerMessages);
+//				System.out.println(obj.bankMessages+" "+bankName+obj.customerMessages);
 			}
 //		System.out.println("Done "+bankName+" "+balance);
 		}

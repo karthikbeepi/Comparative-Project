@@ -1,4 +1,4 @@
-package UDP;
+package CompleteChange;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -70,15 +70,15 @@ public class money {
 		System.out.println("current path is: " + currentPath);
 		ReadFromFile readCustomer;
 		ReadFromFile readBank;
-		if(currentPath.contains("src/UDP/"))
+		if(currentPath.contains("src/CompleteChange/"))
 		{
 			readCustomer = new ReadFromFile("customers.txt", "customers");
 			readBank = new ReadFromFile("banks.txt", "banks");
 		}
 		else
 		{
-			readCustomer = new ReadFromFile("./src/UDP/customers.txt", "customers");
-			readBank = new ReadFromFile("./src/UDP/banks.txt", "banks");	
+			readCustomer = new ReadFromFile("./src/CompleteChange/customers.txt", "customers");
+			readBank = new ReadFromFile("./src/CompleteChange/banks.txt", "banks");	
 		}
 		
 //		readCustomer = new ReadFromFile("./UDP/customers.txt", "customers");

@@ -1,4 +1,4 @@
-package UDP;
+package CompleteChange;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -49,7 +49,7 @@ public class Customer implements Runnable {
 			String response = interserverComm("request "+customerName+" "+reqAmt, 7570+bankNo);
 			try {
 //				wait(new Random().nextInt(100));
-				Thread.sleep(new Random().nextInt(100));
+				Thread.sleep(new Random().nextInt(100)+10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -61,6 +61,13 @@ public class Customer implements Runnable {
 			}
 			else
 				loanAmt-=reqAmt;
+			try {
+//				wait(new Random().nextInt(100));
+				Thread.sleep(new Random().nextInt(100)+10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		try {

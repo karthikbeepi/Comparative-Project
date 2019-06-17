@@ -46,7 +46,7 @@ public class Customer implements Runnable {
 			System.out.println(customerName+" requests a loan of "+(int)loanReq+" dollar(s) from "+bankSelected);
 			temp.add(customerName+" "+loanReq);
 			try {
-				wait(rand.nextInt(100)+10);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -55,12 +55,12 @@ public class Customer implements Runnable {
 			while(s==null)
 			{
 				try {
-					wait(rand.nextInt(100));
+					Thread.sleep(100);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				s = obj.customerMessages.get(customerName);
-				System.out.println(customerName+" "+bankSelected+" "+loanReq);
+//				System.out.println(customerName+" "+bankSelected+" "+loanReq);
 			}
 			
 			if(s.compareToIgnoreCase("YES")==0)
@@ -77,7 +77,7 @@ public class Customer implements Runnable {
 		else
 			System.out.println("\n"+customerName+" was only able to borrow "+(int) Math.round(obj.customers.get(customerName)-loanAmt)+" Boo Hoo!!! ");
 		obj.customersDone.add(customerName);
-		System.out.println(obj.customersDone);
+//		System.out.println(obj.customersDone);
 	}
 	
 }
