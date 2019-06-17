@@ -8,7 +8,6 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class Customer implements Runnable {
 
@@ -29,7 +28,7 @@ public class Customer implements Runnable {
 	}
 
 	@Override
-	public synchronized void run() {
+	public void run() {
 		
 		while(loanAmt>0&&banksDelisted.size()<bankNames.size())
 		{
@@ -49,7 +48,8 @@ public class Customer implements Runnable {
 			
 			String response = interserverComm("request "+customerName+" "+reqAmt, 7570+bankNo);
 			try {
-				wait(new Random().nextInt(100));
+//				wait(new Random().nextInt(100));
+				Thread.sleep(new Random().nextInt(100));
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -63,18 +63,28 @@ public class Customer implements Runnable {
 				loanAmt-=reqAmt;
 		}
 		
+		try {
+//			wait(new Random().nextInt(100));
+			Thread.sleep(new Random().nextInt(100));
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		for(int i=7570; i<7570+bankNames.size(); i++)
 		{
 			interserverComm("DONE "+customerName, i);
 		}
-		if(loanAmt==0)
-			System.out.println("\n"+customerName+" has reached the objective of "+intialLoanAmount+" Woo Hoo!");
-		else
-			System.out.println("\n"+customerName+" was only able to borrow "+(intialLoanAmount-loanAmt)+" Boo Hoo!!! ");
+		synchronized (System.out) {
+			if(loanAmt==0)
+				System.out.println("\n"+customerName+" has reached the objective of "+intialLoanAmount+" Woo Hoo!");
+			else
+				System.out.println("\n"+customerName+" was only able to borrow "+(intialLoanAmount-loanAmt)+" Boo Hoo!!! ");
+		}
 		
 	}
 	
-	public synchronized String interserverComm(String str, int port) {
+	public String interserverComm(String str, int port) {
 		DatagramSocket aSocket = null; 	
 		String s= "";
 		try{

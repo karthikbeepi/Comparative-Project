@@ -70,19 +70,19 @@ public class money {
 		System.out.println("current path is: " + currentPath);
 		ReadFromFile readCustomer;
 		ReadFromFile readBank;
-//		if(!currentPath.contains("src/UDP/"))
-//		{
-//			readCustomer = new ReadFromFile("customers.txt", "customers");
-//			readBank = new ReadFromFile("banks.txt", "banks");
-//		}
-//		else
-//		{
-//			readCustomer = new ReadFromFile("./src/UDP/customers.txt", "customers");
-//			readBank = new ReadFromFile("./src/UDP/banks.txt", "banks");	
-//		}
+		if(currentPath.contains("src/UDP/"))
+		{
+			readCustomer = new ReadFromFile("customers.txt", "customers");
+			readBank = new ReadFromFile("banks.txt", "banks");
+		}
+		else
+		{
+			readCustomer = new ReadFromFile("./src/UDP/customers.txt", "customers");
+			readBank = new ReadFromFile("./src/UDP/banks.txt", "banks");	
+		}
 		
-		readCustomer = new ReadFromFile("./UDP/customers.txt", "customers");
-		readBank = new ReadFromFile("./UDP/banks.txt", "banks");	
+//		readCustomer = new ReadFromFile("./UDP/customers.txt", "customers");
+//		readBank = new ReadFromFile("./UDP/banks.txt", "banks");	
 //	
 		Pair temp;
 		System.out.println("*** Customers and loan objectives ***");

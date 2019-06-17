@@ -28,10 +28,12 @@ public class Bank implements Runnable {
 	}
 
 	@Override
-	public synchronized void run() {
+	public void run() {
 		
 		startUDPConnectionDual();
-		System.out.println("\n"+bankName+" has "+balance+" dollar(s) remaining !");
+		synchronized (System.out) {
+			System.out.println("\n"+bankName+" has "+balance+" dollar(s) remaining !");
+		}
 		
 	}
 
