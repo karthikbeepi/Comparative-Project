@@ -62,10 +62,11 @@ public class Customer implements Runnable {
 			else
 				loanAmt-=reqAmt;
 		}
-		interserverComm("DONE "+customerName, 7570);
-		interserverComm("DONE "+customerName, 7571);
-		interserverComm("DONE "+customerName, 7572);
-		interserverComm("DONE "+customerName, 7573);
+		
+		for(int i=7570; i<7570+bankNames.size(); i++)
+		{
+			interserverComm("DONE "+customerName, i);
+		}
 		if(loanAmt==0)
 			System.out.println("\n"+customerName+" has reached the objective of "+intialLoanAmount+" Woo Hoo!");
 		else

@@ -67,23 +67,23 @@ public class money {
 		
 		File testFile = new File("");
 		String currentPath = testFile.getAbsolutePath();
-//		System.out.println("current path is: " + currentPath);
+		System.out.println("current path is: " + currentPath);
 		ReadFromFile readCustomer;
 		ReadFromFile readBank;
-//		if(!currentPath.contains("src/CompleteReShuffle/"))
+//		if(!currentPath.contains("src/UDP/"))
 //		{
-//			readCustomer = new ReadFromFile("./src/CompleteReShuffle/customers.txt", "customers");
-//			readBank = new ReadFromFile("./src/CompleteReShuffle/banks.txt", "banks");
+//			readCustomer = new ReadFromFile("customers.txt", "customers");
+//			readBank = new ReadFromFile("banks.txt", "banks");
 //		}
 //		else
 //		{
-//			readCustomer = new ReadFromFile("./src/CompleteReShuffle/customers.txt", "customers");
-//			readBank = new ReadFromFile("./src/CompleteReShuffle/banks.txt", "banks");	
+//			readCustomer = new ReadFromFile("./src/UDP/customers.txt", "customers");
+//			readBank = new ReadFromFile("./src/UDP/banks.txt", "banks");	
 //		}
 		
-		readCustomer = new ReadFromFile("G:\\My Documents\\GitHub\\Comparative-Project\\src\\UDP\\customers.txt", "customers");
-		readBank = new ReadFromFile("G:\\My Documents\\GitHub\\Comparative-Project\\src\\UDP\\banks.txt", "banks.txt");
-		
+		readCustomer = new ReadFromFile("./UDP/customers.txt", "customers");
+		readBank = new ReadFromFile("./UDP/banks.txt", "banks");	
+//	
 		Pair temp;
 		System.out.println("*** Customers and loan objectives ***");
 		while(true)
