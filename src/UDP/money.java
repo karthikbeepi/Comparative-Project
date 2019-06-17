@@ -67,7 +67,7 @@ public class money {
 		
 		File testFile = new File("");
 		String currentPath = testFile.getAbsolutePath();
-		System.out.println("current path is: " + currentPath);
+//		System.out.println("current path is: " + currentPath);
 		ReadFromFile readCustomer;
 		ReadFromFile readBank;
 //		if(!currentPath.contains("src/CompleteReShuffle/"))
@@ -81,8 +81,8 @@ public class money {
 //			readBank = new ReadFromFile("./src/CompleteReShuffle/banks.txt", "banks");	
 //		}
 		
-		readCustomer = new ReadFromFile("/home/kbeepi/Comparative-Project/src/CompleteReShuffle/customers.txt", "customers");
-		readBank = new ReadFromFile("/home/kbeepi/Comparative-Project/src/CompleteReShuffle/banks.txt", "banks.txt");
+		readCustomer = new ReadFromFile("G:\\My Documents\\GitHub\\Comparative-Project\\src\\UDP\\customers.txt", "customers");
+		readBank = new ReadFromFile("G:\\My Documents\\GitHub\\Comparative-Project\\src\\UDP\\banks.txt", "banks.txt");
 		
 		Pair temp;
 		System.out.println("*** Customers and loan objectives ***");
@@ -123,7 +123,7 @@ private void runCustomers() {
 		int i=0;
 		for(String s: customers.keySet())
 		{
-			customerThreads[i] = new Thread(new Customer(s, customers.get(s), queue, banks.keySet(), customersDone));
+			customerThreads[i] = new Thread(new Customer(s, customers.get(s), banks.keySet()));
 			customerThreads[i].start();
 			i++;
 		}
@@ -135,7 +135,7 @@ private void runCustomers() {
 		int i=0;
 		for(String s: banks.keySet())
 		{
-			bankThreads[i] = new Thread(new Bank(s, banks.get(s), queue, customersDone, customers.keySet()));
+			bankThreads[i] = new Thread(new Bank(s, banks.get(s), customers.keySet(), i));
 			bankThreads[i].start();
 			i++;
 		}
