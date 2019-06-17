@@ -35,7 +35,7 @@ public class Customer implements Runnable {
 		{
 			Random rand = new Random();
 			int reqAmt = rand.nextInt(50)+1;
-			reqAmt = 50;
+//			reqAmt = 50;
 			if(reqAmt>loanAmt)
 				reqAmt = loanAmt;
 			int bankNo = rand.nextInt(bankNames.size());
@@ -69,7 +69,7 @@ public class Customer implements Runnable {
 		if(loanAmt==0)
 			System.out.println("\n"+customerName+" has reached the objective of "+intialLoanAmount+" Woo Hoo!");
 		else
-			System.out.println("\n"+customerName+" was only able to borrow "+loanAmt+" Boo Hoo!!! ");
+			System.out.println("\n"+customerName+" was only able to borrow "+(intialLoanAmount-loanAmt)+" Boo Hoo!!! ");
 		
 	}
 	
