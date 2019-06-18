@@ -23,7 +23,7 @@ start_recv() ->
             io:fwrite("~p requested a loan of ~p from ~p\n",[Customer, Amount, Bank]),
             start_recv();
         {closing, BankName,  Balance} ->
-            io:fwrite("\n~p has ~p dollar(s) remaining.\n", [BankName, Balance]),
+            io:fwrite("~p has ~p dollar(s) remaining.\n", [BankName, Balance]),
             start_recv();
         {CustomerName, done, LoanAmt} ->
             io:fwrite("\n~p has reached the objective of ~p dollar(s). Woo Hoo!\n", [CustomerName, LoanAmt]),
