@@ -44,12 +44,11 @@ public class Customer implements Runnable {
 			}
 			System.out.println(customerName+" requests a loan of "+reqAmt+" dollar(s) from "+bankSelected);
 			
-			String response = interserverComm("request "+customerName+" "+reqAmt, 7570+bankNo);
+			String response = requestBanks("request "+customerName+" "+reqAmt, 7570+bankNo);
 			try {
 //				wait(new Random().nextInt(100));
 				Thread.sleep(new Random().nextInt(100)+10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			if(response.trim().compareToIgnoreCase("NO")==0)
@@ -63,7 +62,6 @@ public class Customer implements Runnable {
 //				wait(new Random().nextInt(100));
 				Thread.sleep(new Random().nextInt(100)+10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -72,24 +70,22 @@ public class Customer implements Runnable {
 //			wait(new Random().nextInt(100));
 			Thread.sleep(new Random().nextInt(100));
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		for(int i=7570; i<7570+bankNames.size(); i++)
-		{
-			interserverComm("DONE "+customerName, i);
-		}
 		synchronized (System.out) {
 			if(loanAmt==0)
 				System.out.println("\n"+customerName+" has reached the objective of "+intialLoanAmount+" Woo Hoo!");
 			else
 				System.out.println("\n"+customerName+" was only able to borrow "+(intialLoanAmount-loanAmt)+" Boo Hoo!!! ");
 		}
-		
+		for(int i=7570; i<7570+bankNames.size(); i++)
+		{
+			requestBanks("DONE "+customerName, i);
+		}
 	}
 	
-	public String interserverComm(String str, int port) {
+	public String requestBanks(String str, int port) {
 		DatagramSocket aSocket = null; 	
 		String s= "";
 		try{
@@ -110,8 +106,6 @@ public class Customer implements Runnable {
 
 			if(repMSG.charAt(0)!='b')
 				s = s.concat(repMSG);
-//			System.out.println(s.concat(repMSG));
-//			System.out.println(s);
 		}
 		catch(SocketException e){
 			System.out.println("Socket: "+e.getMessage());
