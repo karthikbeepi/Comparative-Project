@@ -29,6 +29,12 @@ public class Bank implements Runnable {
 	public void run() {
 		
 		startUDPConnectionDual();
+		try {
+			//wait(new Random().nextInt(100));
+			Thread.sleep(new Random().nextInt(100)+10);
+			} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		synchronized (System.out) {
 			System.out.println("\n"+bankName+" has "+balance+" dollar(s) remaining !");
 		}
