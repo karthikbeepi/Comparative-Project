@@ -60,9 +60,9 @@ public class Bank implements Runnable {
 				byte[] rep = new byte[1000];
 				rep = replyStr.getBytes();
 				DatagramPacket reply = new DatagramPacket(rep, replyStr.length(), request.getAddress(),
-						request.getPort());// reply packet ready
+						request.getPort());
 				
-				aSocket.send(reply);// reply sent
+				aSocket.send(reply);
 				
 			}
 		} catch (SocketException e) {
