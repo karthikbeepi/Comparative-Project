@@ -44,5 +44,5 @@ start() ->
     Blist = maps:keys(Banks),
     io:fwrite("\n"),
     customer:makeCustomerProcesses(CustomerList, Blist),
-    timer:sleep(2500)
+    timer:sleep(1500)
 .
