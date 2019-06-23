@@ -1,5 +1,7 @@
 For running erlang,
 Please run the money:start() to start running the program.
+(Tested using the command : erl -noshell -s money start -s init stop  in an Ubuntu Environment)
+After waiting for 2.5 seconds, the program will return main_program_exiting as a return value.
 
 For Java,
 Please run the money.java file but provide the required files in the current directory.

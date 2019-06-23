@@ -31,7 +31,9 @@ start_recv() ->
         {CustomerName, notdone, LoanAmt} ->
             io:fwrite("\n~p was only able to borrow ~p dollar(s). Boo Hoo!\n", [CustomerName, LoanAmt]),
             start_recv()
-    end
+% after 1500 -> main_program_exiting
+    end,
+    main_receiver_exiting
 .
 
 start() ->
@@ -44,5 +46,6 @@ start() ->
     Blist = maps:keys(Banks),
     io:fwrite("\n"),
     customer:makeCustomerProcesses(CustomerList, Blist),
-    timer:sleep(1500)
+    timer:sleep(2500),
+    main_program_exiting
 .
