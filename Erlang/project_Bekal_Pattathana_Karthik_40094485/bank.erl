@@ -17,7 +17,6 @@ bank(BankName, Balance) ->
                 end
         after 1500-> master_recv ! {closing, BankName ,  Balance}
     end
-        % master_recv ! {closing, BankName ,  Balance}
 .
 
 makeBankProcesses([]) ->

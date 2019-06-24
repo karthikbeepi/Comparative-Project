@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -6,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.net.InetAddress;
+import java.net.SocketException;
 
 public class Bank implements Runnable {
 
@@ -35,11 +38,37 @@ public class Bank implements Runnable {
 			} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		synchronized (System.out) {
-			System.out.println("\n"+bankName+" has "+balance+" dollar(s) remaining !");
-		}
+//		synchronized (System.out) {
+			sendToMaster("\n"+bankName+" has "+balance+" dollar(s) remaining !");
+//		}
 		
 	}
+	
+	public String sendToMaster(String str) {
+		DatagramSocket aSocket = null; 	
+		String s= "";
+		try{
+			aSocket = new DatagramSocket(); 
+			byte [] message = str.getBytes(); 
+			InetAddress aHost = InetAddress.getByName("localhost"); 
+			int serverPort = 6000;
+			DatagramPacket request = new DatagramPacket(message, str.length(), aHost, serverPort);//request packet read
+			
+			aSocket.send(request);
+		}
+		catch(SocketException e){
+			// System.out.println("Socket: "+e.getMessage());
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			// System.out.println("IO: "+e.getMessage());
+		}
+		finally{
+			if(aSocket != null) aSocket.close();
+		}
+		return s.toString();
+	}
+	
 
 	void startUDPConnectionDual() {
 		DatagramSocket aSocket = null;
@@ -66,9 +95,9 @@ public class Bank implements Runnable {
 				
 			}
 		} catch (SocketException e) {
-			System.out.println("Socket: " + e.getMessage());
+			// System.out.println("Socket: " + e.getMessage());
 		} catch (IOException e) {
-			System.out.println("IO: " + e.getMessage());
+			// System.out.println("IO: " + e.getMessage());
 		} finally {
 			if (aSocket != null)
 				aSocket.close();
@@ -91,12 +120,12 @@ public class Bank implements Runnable {
 			if(reqAmt<=balance)
 			{
 				balance-=reqAmt;
-				System.out.println(bankName+" approves the loan of "+reqAmt+" from "+sp[1]);
+				sendToMaster(bankName+" approves the loan of "+reqAmt+" from "+sp[1]);
 				return "YES";
 			}
 			else
 			{
-				System.out.println(bankName+" denies the loan of "+reqAmt+" from "+sp[1]);
+				sendToMaster(bankName+" denies the loan of "+reqAmt+" from "+sp[1]);
 				return "NO";
 			}
 				

@@ -16,7 +16,6 @@ getRandomBank(Blist, DontCall) ->
 .
 customer(CustomerName, LoanAmt, BankList, NotToCall, Acc) when LoanAmt =< 0 ->
     master_recv ! {CustomerName, done, Acc},
-    % io:fwrite("Reached!"),
     ok;
 customer(CustomerName, LoanAmt, BankList, NotToCall, Acc) when LoanAmt > 0->
     RandomBank = getRandomBank(BankList, NotToCall),
@@ -44,9 +43,7 @@ customer(CustomerName, LoanAmt, BankList, NotToCall, Acc) when LoanAmt > 0->
                                     customer(CustomerName, LoanAmt-RandomAmt, BankList, NotToCall, Acc+RandomAmt)
                             end;
                     {no} ->
-                        % NewList = lists:append(NotToCall, RandomBank),
                         NewList = [RandomBank | NotToCall],
-                        % io:fwrite("~p \n", NewList),
                         customer(CustomerName, LoanAmt, BankList, NewList, Acc)
                 end
             end

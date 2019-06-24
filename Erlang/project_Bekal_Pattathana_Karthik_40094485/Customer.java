@@ -42,7 +42,7 @@ public class Customer implements Runnable {
 				bankNo = rand.nextInt(bankNames.size());
 				bankSelected = bankNames.get(bankNo);
 			}
-			System.out.println(customerName+" requests a loan of "+reqAmt+" dollar(s) from "+bankSelected);
+			sendToMaster(customerName+" requests a loan of "+reqAmt+" dollar(s) from "+bankSelected);
 			
 			String response = requestBanks("request "+customerName+" "+reqAmt, 7570+bankNo);
 			try {
@@ -73,16 +73,49 @@ public class Customer implements Runnable {
 			e.printStackTrace();
 		}
 		
-		synchronized (System.out) {
+		// synchronized (System.out) {
 			if(loanAmt==0)
-				System.out.println("\n"+customerName+" has reached the objective of "+intialLoanAmount+" Woo Hoo!");
+			{
+//				System.out.println("\n"+customerName+" has reached the objective of "+intialLoanAmount+" Woo Hoo!");
+				sendToMaster("\n"+customerName+" has reached the objective of "+intialLoanAmount+" Woo Hoo!");
+			}
 			else
-				System.out.println("\n"+customerName+" was only able to borrow "+(intialLoanAmount-loanAmt)+" Boo Hoo!!! ");
-		}
+			{
+				sendToMaster("\n"+customerName+" was only able to borrow "+(intialLoanAmount-loanAmt)+" Boo Hoo!!! ");
+//				System.out.println("\n"+customerName+" was only able to borrow "+(intialLoanAmount-loanAmt)+" Boo Hoo!!! ");
+			}
+				
+		// }
 		for(int i=7570; i<7570+bankNames.size(); i++)
 		{
 			requestBanks("DONE "+customerName, i);
 		}
+	}
+	
+	public String sendToMaster(String str) {
+		DatagramSocket aSocket = null; 	
+		String s= "";
+		try{
+			aSocket = new DatagramSocket(); 
+			byte [] message = str.getBytes(); 
+			InetAddress aHost = InetAddress.getByName("localhost"); 
+			int serverPort = 6000;
+			DatagramPacket request = new DatagramPacket(message, str.length(), aHost, serverPort);//request packet read
+			
+			aSocket.send(request);
+			
+		}
+		catch(SocketException e){
+			// System.out.println("Socket: "+e.getMessage());
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			// System.out.println("IO: "+e.getMessage());
+		}
+		finally{
+			if(aSocket != null) aSocket.close();
+		}
+		return s.toString();
 	}
 	
 	public String requestBanks(String str, int port) {
@@ -106,11 +139,11 @@ public class Customer implements Runnable {
 				s = s.concat(repMSG);
 		}
 		catch(SocketException e){
-			System.out.println("Socket: "+e.getMessage());
+			// System.out.println("Socket: "+e.getMessage());
 		}
 		catch(IOException e){
 			e.printStackTrace();
-			System.out.println("IO: "+e.getMessage());
+			// System.out.println("IO: "+e.getMessage());
 		}
 		finally{
 			if(aSocket != null) aSocket.close();

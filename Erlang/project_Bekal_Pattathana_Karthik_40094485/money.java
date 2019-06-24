@@ -2,10 +2,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.net.InetAddress;
+import java.net.SocketException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
 
 class Pair{
 	String name;
@@ -58,8 +63,45 @@ public class money {
 	HashMap<String, Integer> customers = new HashMap<>();
 	ArrayList<String> customersDone = new ArrayList<>();
 	
+	
 	Thread[] bankThreads;
 	Thread[] customerThreads;
+	
+	void startUDPConnectionDual() {
+		DatagramSocket aSocket = null;
+		int bankCount =0;
+		try {
+			aSocket = new DatagramSocket(6000);
+			byte[] buffer = new byte[1000];		
+			while (bankCount<banks.size()) {
+				
+				buffer = new byte[1000];
+				DatagramPacket request = new DatagramPacket(buffer, buffer.length);
+				
+				aSocket.receive(request);
+				
+				String req = new String(request.getData());
+				
+				if(!req.trim().contains(" remaining"))
+					System.out.println(req);
+				else
+				{
+					System.out.println(req);
+					bankCount++;
+				}
+				if(bankCount==banks.size())
+					break;
+				
+			}
+		} catch (SocketException e) {
+			System.out.println("Socket: " + e.getMessage());
+		} catch (IOException e) {
+			System.out.println("IO: " + e.getMessage());
+		} finally {
+			if (aSocket != null)
+				aSocket.close();
+		}
+	}
 	
 	public money() {
 		
@@ -110,6 +152,11 @@ public class money {
 	public static void main(String[] args) {
 		
 		money obj = new money();
+		Runnable masterReceiver = () -> {
+			obj.startUDPConnectionDual();
+		};
+		Thread t = new Thread(masterReceiver);
+		t.start();
 		obj.runBanks();
 		obj.runCustomers();
 		
